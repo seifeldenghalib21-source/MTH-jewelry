@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTH Jewelry – الأناقة والبريق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #A07830;
+    --gold-pale: #F5ECD7;
+    --white: #FEFEFE;
+    --off-white: #FAF8F4;
+    --cream: #F2EDE3;
+    --charcoal: #1A1410;
+    --warm-gray: #9A8F84;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    direction: rtl;
+  }
+
+  /* ORNAMENT */
+  .ornament {
+    display: flex; align-items: center; gap: 14px;
+    justify-content: center; margin: 18px auto;
+  }
+  .ornament span {
+    display: block; width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .ornament span:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+  .ornament i { font-style: normal; color: var(--gold); font-size: 14px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 72px;
+    background: rgba(254,254,254,0.96);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 40px rgba(160,120,48,0.1); }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo img { height: 48px; width: 48px; object-fit: contain; border-radius: 50%; }
+  .nav-logo-text {
+    font-family: 'Scheherazade New', serif;
+    font-size: 21px; font-weight: 700; color: var(--charcoal);
+  }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 500;
+    color: var(--charcoal); text-decoration: none;
+    position: relative; padding-bottom: 3px; transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; right: 0;
+    width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 600;
+    padding: 9px 22px; border: 1.5px solid var(--gold);
+    color: var(--gold); background: transparent;
+    cursor: pointer; text-decoration: none; transition: all 0.3s; border-radius: 2px;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--white); }
+
+  /* HAMBURGER */
+  .menu-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 6px; background: none; border: none; z-index: 200;
+  }
+  .menu-toggle span {
+    display: block; width: 25px; height: 2px;
+    background: var(--charcoal); border-radius: 2px; transition: all 0.35s;
+  }
+  .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE DRAWER */
+  .mobile-nav {
+    display: none; position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: var(--white); z-index: 98;
+    flex-direction: column; padding: 0 24px 20px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transform: translateY(-8px); opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .mobile-nav.open {
+    display: flex; opacity: 1;
+    transform: translateY(0); pointer-events: all;
+  }
+  .mobile-nav a {
+    font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 500;
+    color: var(--charcoal); text-decoration: none;
+    padding: 15px 0; text-align: right;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    transition: color 0.3s;
+  }
+  .mobile-nav a:last-of-type { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-cta {
+    margin-top: 14px !important;
+    background: var(--gold) !important; color: var(--white) !important;
+    text-align: center !important; padding: 13px !important;
+    border-radius: 2px !important; font-weight: 600 !important;
+    border-bottom: none !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--off-white); position: relative;
+    overflow: hidden; padding: 100px 20px 60px; text-align: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(201,168,76,0.04) 0, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(-45deg, rgba(201,168,76,0.04) 0, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 60px);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    opacity: 0; transform: translateY(28px);
+    animation: fadeUp 1.2s ease forwards 0.3s;
+    width: 100%; max-width: 700px;
+  }
+  .hero-logo {
+    width: 130px; height: 130px; object-fit: contain; margin-bottom: 24px;
+    filter: drop-shadow(0 8px 40px rgba(201,168,76,0.25));
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .hero-tagline {
+    font-family: 'Cairo', sans-serif; font-size: clamp(11px,2vw,14px);
+    font-weight: 500; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 14px;
+  }
+  .hero-title {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(44px, 10vw, 100px); font-weight: 700;
+    line-height: 1; color: var(--charcoal);
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(16px, 3vw, 24px); font-weight: 400;
+    color: var(--warm-gray); margin: 14px 0 32px; letter-spacing: 0.05em;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px 34px; background: var(--gold); color: var(--white);
+    border: none; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: background 0.3s; border-radius: 2px;
+  }
+  .btn-primary:hover { background: var(--gold-dark); }
+  .btn-secondary {
+    font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px 34px; background: transparent; color: var(--charcoal);
+    border: 1.5px solid rgba(26,20,16,0.25); cursor: pointer;
+    text-decoration: none; display: inline-block; transition: all 0.3s; border-radius: 2px;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--warm-gray); font-size: 11px;
+    opacity: 0; animation: fadeUp 1s ease forwards 1.5s;
+  }
+  .scroll-line {
+    width: 1px; height: 38px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: sLine 2s ease-in-out infinite;
+  }
+  @keyframes sLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION BASE */
+  section { padding: 80px 40px; }
+  .section-label {
+    font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); text-align: center; margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(32px,5vw,58px); font-weight: 700;
+    text-align: center; line-height: 1.15; color: var(--charcoal);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* MARQUEE */
+  .marquee-section { background: var(--charcoal); padding: 18px 0; overflow: hidden; }
+  .marquee-track {
+    display: flex; animation: marqueeAnim 28s linear infinite;
+    white-space: nowrap; width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 500;
+    color: var(--gold); padding: 0 34px;
+    display: flex; align-items: center; gap: 14px; flex-shrink: 0;
+  }
+  .marquee-item::after { content: '✦'; color: var(--gold-dark); }
+  @keyframes marqueeAnim {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ══════════════════════════════
+     GALLERY
+  ══════════════════════════════ */
+  .gallery-section { background: var(--off-white); padding: 80px 0; overflow: hidden; }
+  .gallery-header { text-align: center; padding: 0 24px; margin-bottom: 44px; }
+
+  /* Toggle */
+  .toggle-wrap { display: flex; justify-content: center; margin-top: 28px; }
+  .toggle-btn {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600;
+    color: var(--charcoal); background: var(--white);
+    border: 1.5px solid var(--gold); padding: 12px 26px;
+    cursor: pointer; border-radius: 3px; transition: all 0.3s;
+    user-select: none;
+  }
+  .toggle-btn:hover { background: var(--gold-pale); }
+  .toggle-icon-circle {
+    width: 34px; height: 34px; background: var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    flex-shrink: 0;
+  }
+  .toggle-icon-circle svg { width: 15px; height: 15px; fill: white; }
+  .gallery-section.grid-mode .toggle-icon-circle { transform: rotate(180deg); background: var(--gold-dark); }
+  .lbl-scroll { display: inline; }
+  .lbl-grid { display: none; }
+  .gallery-section.grid-mode .lbl-scroll { display: none; }
+  .gallery-section.grid-mode .lbl-grid { display: inline; }
+
+  /* STRIP */
+  .strip-wrap { overflow: hidden; position: relative; }
+.strip {
+  display: flex;
+  gap: 0;
+  padding: 16px 32px;
+  overflow-x: scroll;
+  scroll-behavior: auto;
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.strip:active {
+  cursor: grabbing;
+}
+
+.s-item {
+  flex-shrink: 0;
+  width: 260px;
+  height: 340px;
+  margin: 0 8px;
+}
+  .s-item:hover { transform: translateY(-8px); box-shadow: 0 18px 48px rgba(26,20,16,0.18); }
+  .s-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .s-item:hover img { transform: scale(1.07); }
+  .s-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,20,16,0.8) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.4s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 18px;
+  }
+  .s-item:hover .s-overlay { opacity: 1; }
+  .s-name {
+    font-family: 'Scheherazade New', serif; font-size: 19px; font-weight: 600;
+    color: white; text-align: right; margin-bottom: 3px;
+  }
+  .s-meta {
+    font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 500;
+    color: var(--gold-light); text-align: right;
+  }
+  .s-tag {
+    position: absolute; top: 12px; right: 12px;
+    font-family: 'Cairo', sans-serif; font-size: 10px; font-weight: 600;
+    padding: 4px 10px; background: var(--gold); color: white; border-radius: 2px;
+  }
+
+  /* GRID VIEW */
+  .grid-wrap { display: none; padding: 0 32px; }
+  .gallery-section.grid-mode .strip-wrap { display: none; }
+  .gallery-section.grid-mode .grid-wrap { display: block; }
+  .g-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; max-width: 1280px; margin: 0 auto;
+  }
+  .g-item {
+    aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;
+    position: relative; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26,20,16,0.08);
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .g-item:hover { transform: translateY(-6px); box-shadow: 0 14px 36px rgba(26,20,16,0.16); }
+  .g-item.tall { grid-row: span 2; aspect-ratio: auto; }
+  .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .g-item:hover img { transform: scale(1.06); }
+  .g-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,20,16,0.75) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.4s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 16px;
+  }
+  .g-item:hover .g-overlay { opacity: 1; }
+  .g-tag {
+    position: absolute; top: 10px; right: 10px;
+    font-family: 'Cairo', sans-serif; font-size: 10px; font-weight: 600;
+    padding: 3px 10px; background: var(--gold); color: white; border-radius: 2px;
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center; padding: 100px 64px;
+  }
+  .about-text .section-label,
+  .about-text .section-title { text-align: right; }
+  .about-text .ornament { justify-content: flex-end; }
+  .about-desc {
+    font-family: 'Scheherazade New', serif; font-size: 19px; font-weight: 400;
+    line-height: 1.9; color: #5A4E44; margin-bottom: 16px; text-align: right;
+  }
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; 
+  gap: 16px;
+  margin-top: 28px; }
+  .feat {
+    display: flex; align-items: flex-start;
+    gap: 10px; flex-direction: row-reverse;
+  }
+  .feat-icon {
+    width: 30px; height: 30px; border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+  .feat-t {
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700;
+    margin-bottom: 3px; text-align: right; color: var(--charcoal);
+  }
+  .feat-d { font-size: 12px; color: var(--warm-gray); line-height: 1.6; text-align: right; }
+  .about-visual { position: relative; }
+  .a-frame { width: 100%; aspect-ratio: 3/4; position: relative; }
+  .a-frame::before {
+    content: ''; position: absolute;
+    top: -18px; right: -18px; left: 18px; bottom: 18px;
+    border: 1px solid var(--gold); z-index: 0;
+  }
+  .a-frame img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+  .a-badge {
+    position: absolute; bottom: -26px; left: -26px;
+    width: 104px; height: 104px; background: var(--gold); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; z-index: 2;
+    box-shadow: 0 6px 28px rgba(201,168,76,0.4);
+  }
+  .a-num {
+    font-family: 'Scheherazade New', serif; font-size: 28px; font-weight: 700;
+    color: white; line-height: 1;
+  }
+  .a-lbl {
+    font-family: 'Cairo', sans-serif; font-size: 9px; font-weight: 600;
+    color: rgba(255,255,255,0.9); text-align: center; padding: 0 6px;
+  }
+
+  /* TESTIMONIALS */
+  .test-section { background: var(--charcoal); text-align: center; padding: 88px 32px; }
+  .test-section .section-label { color: var(--gold); }
+  .test-section .section-title { color: white; margin-bottom: 44px; }
+  .test-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+  }
+  .test-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+    padding: 34px 26px; text-align: right; transition: border-color 0.3s; border-radius: 4px;
+  }
+  .test-card:hover { border-color: rgba(201,168,76,0.45); }
+  .stars { color: var(--gold); font-size: 16px; letter-spacing: 3px; margin-bottom: 14px; }
+  .test-text {
+    font-family: 'Scheherazade New', serif; font-size: 18px;
+    color: rgba(255,255,255,0.85); line-height: 1.85; margin-bottom: 18px;
+  }
+  .test-author { font-family: 'Cairo', sans-serif; font-size: 12px; font-weight: 600; color: var(--gold); }
+  .test-loc { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 3px; }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--gold-pale);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center; padding: 100px 64px;
+  }
+  .contact-info .section-label,
+  .contact-info .section-title { text-align: right; }
+  .contact-tagline {
+    font-family: 'Scheherazade New', serif; font-size: 18px; font-weight: 400;
+    color: #6A5E54; line-height: 1.85; margin: 18px 0 28px; text-align: right;
+  }
+  .c-details { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .c-details li {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Scheherazade New', serif; font-size: 17px; color: var(--charcoal);
+    flex-direction: row-reverse; justify-content: flex-start;
+  }
+  .c-details li .icon { color: var(--gold); font-size: 17px; }
+  .c-form { display: flex; flex-direction: column; gap: 13px; }
+  .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+  .f-group { display: flex; flex-direction: column; gap: 5px; }
+  .f-group label {
+    font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 600;
+    color: var(--warm-gray); text-align: right;
+  }
+  .f-group input, .f-group textarea, .f-group select {
+    font-family: 'Scheherazade New', serif; font-size: 17px;
+    padding: 11px 13px; border: 1px solid rgba(201,168,76,0.3);
+    background: white; color: var(--charcoal); outline: none;
+    transition: border-color 0.3s; resize: none; text-align: right;
+    direction: rtl; border-radius: 2px;
+  }
+  .f-group input:focus, .f-group textarea:focus, .f-group select:focus { border-color: var(--gold); }
+  .f-group textarea { height: 108px; }
+
+  /* FOOTER */
+  footer { background: #100E0C; padding: 52px 52px 26px; }
+  .f-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 36px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .f-brand img { height: 58px; margin-bottom: 12px; filter: brightness(0) invert(1) opacity(0.85); }
+  .f-brand p {
+    font-family: 'Scheherazade New', serif; font-size: 16px;
+    color: rgba(255,255,255,0.4); line-height: 1.8; margin-bottom: 20px; text-align: right;
+  }
+  .f-socials { display: flex; gap: 9px; justify-content: flex-end; }
+  .f-social {
+    width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 12px; font-family: 'Cairo', sans-serif;
+    text-decoration: none; transition: all 0.3s; border-radius: 2px;
+  }
+  .f-social:hover { background: var(--gold); border-color: var(--gold); color: white; }
+  .f-col h4 {
+    font-family: 'Cairo', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; text-align: right;
+  }
+  .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .f-col a {
+    font-family: 'Scheherazade New', serif; font-size: 16px;
+    color: rgba(255,255,255,0.4); text-decoration: none;
+    transition: color 0.3s; text-align: right; display: block;
+  }
+  .f-col a:hover { color: var(--gold); }
+  .f-bottom {
+    padding-top: 22px; display: flex;
+    justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .f-copy { font-size: 12px; color: rgba(255,255,255,0.22); }
+  .f-tag { font-family: 'Scheherazade New', serif; font-size: 14px; color: var(--gold); opacity: 0.65; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(8,6,4,0.96); z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
+  }
+  .lightbox.open { opacity: 1; pointer-events: all; }
+  .lightbox img {
+    max-width: 88vw; max-height: 83vh; object-fit: contain;
+    border-radius: 4px; transform: scale(0.9); transition: transform 0.4s, opacity 0.2s;
+  }
+  .lightbox.open img { transform: scale(1); }
+  .lb-close {
+    position: absolute; top: 22px; left: 24px;
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--gold); cursor: pointer; background: none;
+    border: 1px solid rgba(201,168,76,0.35); padding: 7px 15px; border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .lb-close:hover { background: rgba(201,168,76,0.18); }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 22px; transition: all 0.3s; border-radius: 2px;
+  }
+  .lb-nav:hover { background: var(--gold); color: white; }
+  .lb-prev { right: 18px; }
+  .lb-next { left: 18px; }
+  .lb-count {
+    position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+    font-family: 'Cairo', sans-serif; font-size: 12px; color: rgba(255,255,255,0.45);
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 1080px) {
+    .g-grid { grid-template-columns: repeat(3,1fr); }
+    .f-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    /* NAV */
+    nav { padding: 0 18px; height: 64px; }
+    .nav-links, .nav-cta { display: none !important; }
+    .menu-toggle { display: flex; }
+    .mobile-nav { top: 64px; }
+
+    /* HERO */
+    .hero { padding: 90px 18px 50px; min-height: 100svh; }
+    .hero-logo { width: 110px; height: 110px; margin-bottom: 18px; }
+    .hero-btns { flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; margin: 0 auto; }
+    .btn-primary, .btn-secondary { text-align: center; padding: 13px 20px; }
+    .hero-scroll { display: none; }
+
+    /* MARQUEE */
+    .marquee-item { font-size: 12px; padding: 0 22px; }
+
+    /* GALLERY */
+    .gallery-section { padding: 60px 0; }
+    .gallery-header { padding: 0 18px; }
+    .strip { padding: 12px 18px; gap: 12px; }
+    .s-item { width: 190px; height: 240px; }
+    .grid-wrap { padding: 0 18px; }
+    .g-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .g-item.tall { grid-row: span 1; aspect-ratio: 3/4; }
+    .g-item.wide { grid-column: span 2; aspect-ratio: 4/3; }
+    .toggle-btn { padding: 10px 18px; font-size: 13px; }
+
+    /* ABOUT */
+    .about-section { grid-template-columns: 1fr; padding: 60px 20px; gap: 56px; }
+    .a-frame { aspect-ratio: 4/3; }
+    .a-badge { width: 86px; height: 86px; bottom: -18px; left: -10px; }
+    .a-num { font-size: 22px; }
+    .about-features { grid-template-columns: 1fr; gap: 14px; }
+
+    /* TESTIMONIALS */
+    .test-section { padding: 60px 18px; }
+    .test-grid { grid-template-columns: 1fr; gap: 14px; }
+
+    /* CONTACT */
+    .contact-section { grid-template-columns: 1fr; padding: 60px 20px; gap: 44px; }
+    .f-row { grid-template-columns: 1fr; }
+
+    /* FOOTER */
+    footer { padding: 44px 20px 22px; }
+    .f-top { grid-template-columns: 1fr; gap: 28px; }
+    .f-bottom { flex-direction: column; text-align: center; }
+
+    /* LIGHTBOX */
+    .lb-prev { right: 6px; }
+    .lb-next { left: 6px; }
+    .lb-nav { width: 40px; height: 40px; font-size: 18px; }
+    .lightbox img { max-width: 94vw; max-height: 78vh; }
+  }
+
+  @media (max-width: 420px) {
+    .s-item { width: 165px; height: 210px; }
+    .g-grid { gap: 6px; }
+    .section-title { font-size: clamp(28px,8vw,40px); }
+    nav { padding: 0 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="logo.jpg" alt="MTH Jewelry">
+    <div class="nav-logo-text">MTH <span>Jewelry</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#gallery">المجموعة</a></li>
+    <li><a href="#about">من نحن</a></li>
+    <li><a href="#testimonials">آراء العملاء</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">استفسر الآن</a>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#gallery" onclick="closeMenu()">المجموعة</a>
+  <a href="#about" onclick="closeMenu()">من نحن</a>
+  <a href="#testimonials" onclick="closeMenu()">آراء العملاء</a>
+  <a href="#contact" onclick="closeMenu()">تواصل معنا</a>
+  <a href="#contact" class="mobile-cta" onclick="closeMenu()">استفسر الآن</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="logo.jpg" alt="MTH Jewelry" class="hero-logo">
+    <p class="hero-tagline">مجوهرات راقية &nbsp;·&nbsp; حرفية استثنائية</p>
+    <h1 class="hero-title">MTH <em>Jewelry</em></h1>
+    <div class="ornament"><span></span><i>✦</i><span></span></div>
+    <p class="hero-subtitle">الأناقة والبريق</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-primary">تصفح المجموعة</a>
+      <a href="#contact" class="btn-secondary">احجز استشارة</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>مرر للأسفل</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">مجوهرات يدوية الصنع</div>
+    <div class="marquee-item">الياقوت والذهب</div>
+    <div class="marquee-item">مجموعة الزمرد</div>
+    <div class="marquee-item">خواتم الألماس</div>
+    <div class="marquee-item">قلائد رفيعة</div>
+    <div class="marquee-item">الأناقة والبريق</div>
+    <div class="marquee-item">MTH Jewelry</div>
+    <div class="marquee-item">مجوهرات يدوية الصنع</div>
+    <div class="marquee-item">الياقوت والذهب</div>
+    <div class="marquee-item">مجموعة الزمرد</div>
+    <div class="marquee-item">خواتم الألماس</div>
+    <div class="marquee-item">قلائد رفيعة</div>
+    <div class="marquee-item">الأناقة والبريق</div>
+    <div class="marquee-item">MTH Jewelry</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header reveal">
+    <p class="section-label">إبداعاتنا</p>
+    <h2 class="section-title">مجموعتنا <em>المميزة</em></h2>
+    <div class="ornament"><span></span><i>✦</i><span></span></div>
+    <div class="toggle-wrap">
+      <button class="toggle-btn" id="toggleBtn" onclick="toggleGallery()">
+        <div class="toggle-icon-circle">
+          <!-- Grid Icon -->
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="7" height="7" rx="1"/>
+            <rect x="11" y="2" width="7" height="7" rx="1"/>
+            <rect x="2" y="11" width="7" height="7" rx="1"/>
+            <rect x="11" y="11" width="7" height="7" rx="1"/>
+          </svg>
+        </div>
+        <span class="lbl-scroll">عرض كل الصور</span>
+        <span class="lbl-grid">العرض بالقطعه</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- AUTO-SCROLL STRIP -->
+  <div class="strip-wrap">
+    <div class="strip" id="strip">
+      <!-- Set 1 -->
+      <div class="s-item" onclick="openLb(0)"><img src="p1.jpg" alt=""><span class="s-tag">الأكثر مبيعاً</span><div class="s-overlay"><div class="s-name">قلادة الشعلتين</div><div class="s-meta">ياقوت · ذهب وفضة · سلسلة مزدوجة</div></div></div>
+      <div class="s-item" onclick="openLb(1)"><img src="p2.jpg" alt=""><div class="s-overlay"><div class="s-name">قلادة السهم</div><div class="s-meta">ياقوت · فضة إسترلينية</div></div></div>
+      <div class="s-item" onclick="openLb(2)"><img src="p3.jpg" alt=""><span class="s-tag">جديد</span><div class="s-overlay"><div class="s-name">خاتم الطائرة القرمزية</div><div class="s-meta">ياقوت · ألماس باجيت · ذهب 18</div></div></div>
+      <div class="s-item" onclick="openLb(3)"><img src="p4.jpg" alt=""><div class="s-overlay"><div class="s-name">السهم السماوي</div><div class="s-meta">ياقوت · فضة · هندسي</div></div></div>
+      <div class="s-item" onclick="openLb(4)"><img src="p5.jpg" alt=""><span class="s-tag">حصري</span><div class="s-overlay"><div class="s-name">لؤلؤ الأم</div><div class="s-meta">ياقوت · تطعيم لؤلؤي · فضة سوداء</div></div></div>
+      <div class="s-item" onclick="openLb(5)"><img src="p6.jpg" alt=""><div class="s-overlay"><div class="s-name">القلادة الذهبية</div><div class="s-meta">ياقوت · ذهب 18 · هندسي</div></div></div>
+      <div class="s-item" onclick="openLb(6)"><img src="p7.jpg" alt=""><div class="s-overlay"><div class="s-name">القلادة الفضية</div><div class="s-meta">ياقوت · فضة · إطار مفتوح</div></div></div>
+      <div class="s-item" onclick="openLb(7)"><img src="p8.jpg" alt=""><span class="s-tag">جديد</span><div class="s-overlay"><div class="s-name">خاتم الزمرد</div><div class="s-meta">زمرد · إطار ذهبي · نطاق بلاتيني</div></div></div>
+      <div class="s-item" onclick="openLb(8)"><img src="p9.jpg" alt=""><div class="s-overlay"><div class="s-name">سوار الزمرد</div><div class="s-meta">زمرد · ذهب · قابل للتعديل</div></div></div>
+      <div class="s-item" onclick="openLb(9)"><img src="p10.jpg" alt=""><span class="s-tag">التوقيع</span><div class="s-overlay"><div class="s-name">فردة الألماس</div><div class="s-meta">ألماس · بلاتين · تصميم كلاسيكي</div></div></div>
+      <div class="s-item" onclick="openLb(10)"><img src="p11.jpg" alt=""><div class="s-overlay"><div class="s-name">قطرة اللهب</div><div class="s-meta">ياقوت · ذهب 18 · قطعة بيانية</div></div></div>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="s-item" onclick="openLb(0)"><img src="p1.jpg" alt=""><div class="s-overlay"><div class="s-name">قلادة الشعلتين</div><div class="s-meta">ياقوت · ذهب وفضة</div></div></div>
+      <div class="s-item" onclick="openLb(1)"><img src="p2.jpg" alt=""><div class="s-overlay"><div class="s-name">قلادة السهم</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="s-item" onclick="openLb(2)"><img src="p3.jpg" alt=""><div class="s-overlay"><div class="s-name">خاتم الطائرة القرمزية</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+      <div class="s-item" onclick="openLb(3)"><img src="p4.jpg" alt=""><div class="s-overlay"><div class="s-name">السهم السماوي</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="s-item" onclick="openLb(4)"><img src="p5.jpg" alt=""><div class="s-overlay"><div class="s-name">لؤلؤ الأم</div><div class="s-meta">ياقوت · لؤلؤ</div></div></div>
+      <div class="s-item" onclick="openLb(5)"><img src="p6.jpg" alt=""><div class="s-overlay"><div class="s-name">القلادة الذهبية</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+      <div class="s-item" onclick="openLb(6)"><img src="p7.jpg" alt=""><div class="s-overlay"><div class="s-name">القلادة الفضية</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="s-item" onclick="openLb(7)"><img src="p8.jpg" alt=""><div class="s-overlay"><div class="s-name">خاتم الزمرد</div><div class="s-meta">زمرد · ذهب</div></div></div>
+      <div class="s-item" onclick="openLb(8)"><img src="p9.jpg" alt=""><div class="s-overlay"><div class="s-name">سوار الزمرد</div><div class="s-meta">زمرد · ذهب</div></div></div>
+      <div class="s-item" onclick="openLb(9)"><img src="p10.jpg" alt=""><div class="s-overlay"><div class="s-name">فردة الألماس</div><div class="s-meta">ألماس · بلاتين</div></div></div>
+      <div class="s-item" onclick="openLb(10)"><img src="p11.jpg" alt=""><div class="s-overlay"><div class="s-name">قطرة اللهب</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+    </div>
+  </div>
+
+  <!-- GRID ALL -->
+  <div class="grid-wrap">
+    <div class="g-grid">
+      <div class="g-item wide" onclick="openLb(0)"><img src="p1.jpg" alt=""><span class="g-tag">الأكثر مبيعاً</span><div class="g-overlay"><div class="s-name">قلادة الشعلتين</div><div class="s-meta">ياقوت · ذهب وفضة</div></div></div>
+      <div class="g-item" onclick="openLb(1)"><img src="p2.jpg" alt=""><div class="g-overlay"><div class="s-name">قلادة السهم</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="g-item" onclick="openLb(2)"><img src="p3.jpg" alt=""><span class="g-tag">جديد</span><div class="g-overlay"><div class="s-name">خاتم الطائرة القرمزية</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+      <div class="g-item tall" onclick="openLb(4)"><img src="p5.jpg" alt=""><span class="g-tag">حصري</span><div class="g-overlay"><div class="s-name">لؤلؤ الأم</div><div class="s-meta">ياقوت · لؤلؤ</div></div></div>
+      <div class="g-item" onclick="openLb(3)"><img src="p4.jpg" alt=""><div class="g-overlay"><div class="s-name">السهم السماوي</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="g-item" onclick="openLb(5)"><img src="p6.jpg" alt=""><div class="g-overlay"><div class="s-name">القلادة الذهبية</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+      <div class="g-item" onclick="openLb(6)"><img src="p7.jpg" alt=""><div class="g-overlay"><div class="s-name">القلادة الفضية</div><div class="s-meta">ياقوت · فضة</div></div></div>
+      <div class="g-item" onclick="openLb(7)"><img src="p8.jpg" alt=""><span class="g-tag">جديد</span><div class="g-overlay"><div class="s-name">خاتم الزمرد</div><div class="s-meta">زمرد · ذهب</div></div></div>
+      <div class="g-item" onclick="openLb(8)"><img src="p9.jpg" alt=""><div class="g-overlay"><div class="s-name">سوار الزمرد</div><div class="s-meta">زمرد · ذهب</div></div></div>
+      <div class="g-item" onclick="openLb(9)"><img src="p10.jpg" alt=""><span class="g-tag">التوقيع</span><div class="g-overlay"><div class="s-name">فردة الألماس</div><div class="s-meta">ألماس · بلاتين</div></div></div>
+      <div class="g-item" onclick="openLb(10)"><img src="p11.jpg" alt=""><div class="g-overlay"><div class="s-name">قطرة اللهب</div><div class="s-meta">ياقوت · ذهب</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-text reveal">
+    <p class="section-label">قصتنا</p>
+    <h2 class="section-title">صُنعت <em>بشغف</em></h2>
+    <div class="ornament" style="justify-content:flex-end;"><span></span><i>✦</i><span></span></div>
+    <p class="about-desc">في MTH Jewelry، كل قطعة تولد من احترام عميق لفن صنع المجوهرات الراقية. نمزج بين الأناقة الخالدة والتصميم المعاصر، لنخلق قطعاً تروي قصتك أنت.</p>
+    <p class="about-desc">يعمل حرفيونا مع أجود الياقوت والزمرد والألماس، من القلائد الهندسية إلى الخواتم الرقيقة — كل إبداع يحمل وعد MTH بالجمال والخلود.</p>
+    <div class="about-features">
+      <div class="feat"><div class="feat-icon">◆</div><div><div class="feat-t">أحجار كريمة معتمدة</div><div class="feat-d">كل حجر مصدره أخلاقي ومعتمد للجودة.</div></div></div>
+      <div class="feat"><div class="feat-icon">✦</div><div><div class="feat-t">تصميم مخصص</div><div class="feat-d">قطع فريدة مصممة وفق رؤيتك وقصتك.</div></div></div>
+      <div class="feat"><div class="feat-icon">○</div><div><div class="feat-t">خدمة مدى الحياة</div><div class="feat-d">تنظيف وتلميع مجاني وضمان مدى الحياة.</div></div></div>
+      <div class="feat"><div class="feat-icon">▷</div><div><div class="feat-t">شحن عالمي</div><div class="feat-d">توصيل مؤمّن لبابك أينما كنت في العالم.</div></div></div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="a-frame"><img src="p5.jpg" alt="حرفية MTH Jewelry"></div>
+    <div class="a-badge">
+      <div class="a-num">1</div>
+      <div class="a-lbl">سنوات من التميز</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-section" id="testimonials">
+  <p class="section-label">كلمات العملاء</p>
+  <h2 class="section-title">يحبها <em>الجميع</em></h2>
+  <div class="ornament" style="margin-bottom:40px;"><span style="background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5))"></span><i>✦</i><span style="background:linear-gradient(90deg,rgba(201,168,76,0.5),transparent)"></span></div>
+  <div class="test-grid">
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-text">«قلادة الياقوت رائعة حقاً. الحرفية لا مثيل لها، تشعر وكأنك تمسك تحفة فنية.»</p><div class="test-author">ليلى الحسن</div><div class="test-loc">دهتوره-الغربيه</div></div>
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-text">«طلبت خاتم زمرد مخصصاً لخطبتي. MTH فاق كل توقعاتي. سحر حقيقي.»</p><div class="test-author">ملك محمد</div><div class="test-loc">الجيزه-مصر</div></div>
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-text">«من التغليف إلى القطعة ذاتها، كل تفصيل يتحدث عن الفخامة. MTH هو وجهتي لكل مناسبة.»</p><div class="test-author">نور الدين</div><div class="test-loc">القاهرة، مصر</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-info reveal">
+    <p class="section-label">تواصل معنا</p>
+    <h2 class="section-title">ابدأ <em>رحلتك</em></h2>
+    <p class="contact-tagline">سواء كنت تبحث عن هدية مثالية أو تخطط لطلب خطوبة — فريقنا هنا ليرشدك إلى قطعة أحلامك.</p>
+    <ul class="c-details">
+      <li><span>n34530223@gmail.com</span><span class="icon">✉</span></li>
+      <li><span>+20 11 44895247</span><span class="icon">☎</span></li>
+      <li><span>متاح عالمياً · استشارات أونلاين</span><span class="icon">◎</span></li>
+      <li><span>من السبت للخميس ٩ص ل ١٠م</span><span class="icon">◷</span></li>
+    </ul>
+  </div>
+  <div class="c-form reveal">
+    <div class="f-row">
+      <div class="f-group"><label>الاسم الأول</label><input type="text" placeholder="اسمك الأول"></div>
+      <div class="f-group"><label>اسم العائلة</label><input type="text" placeholder="اسم عائلتك"></div>
+    </div>
+    <div class="f-group"><label>البريد الإلكتروني</label><input type="email" placeholder="example@email.com"></div>
+    <div class="f-group">
+      <label>الاهتمام</label>
+      <select>
+        <option value="">اختر الفئة...</option>
+        <option>قلائد وعلاقات</option>
+        <option>خواتم</option>
+        <option>أساور</option>
+        <option>تصميم مخصص</option>
+        <option>استشارة هدية</option>
+      </select>
+    </div>
+    <div class="f-group"><label>رسالتك</label><textarea placeholder="أخبرنا عن القطعة التي تبحث عنها..."></textarea></div>
+    <button class="btn-primary" onclick="submitForm()">إرسال الاستفسار</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <img src="logo.jpg" alt="MTH Jewelry">
+      <p>«حيث تحكي كل جوهرة قصة، وتصبح كل قطعة ذكرى.»</p>
+      <div class="f-socials">
+        <a href="https://www.instagram.com/mthjewelry2026?igsh=MThvMDh2Y3J4MWJ4OQ==" class="f-social">in</a>
+          </div>
+    </div>
+    <div class="f-col"><h4>المجموعة</h4><ul><li><a href="#gallery">القلائد</a></li><li><a href="#gallery">الخواتم</a></li><li><a href="#gallery">الأساور</a></li><li><a href="#gallery">الأقراط</a></li><li><a href="#gallery">التصميم المخصص</a></li></ul></div>
+    <div class="f-col"><h4>الشركة</h4><ul><li><a href="#about">قصتنا</a></li><li><a href="#about">الحرفية</a></li><li><a href="#">الشهادات</a></li><li><a href="#">الصحافة</a></li><li><a href="#contact">الوظائف</a></li></ul></div>
+    <div class="f-col"><h4>الخدمات</h4><ul><li><a href="#contact">الاستشارة</a></li><li><a href="#">التصميم المخصص</a></li><li><a href="#">التحجيم والإصلاح</a></li><li><a href="#">تغليف الهدايا</a></li><li><a href="#">الشحن العالمي</a></li></ul></div>
+  </div>
+  <div class="f-bottom">
+    <span class="f-copy">© 2026 MTH Jewelry. جميع الحقوق محفوظة.</span>
+    <span class="f-tag">الأناقة والبريق</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="lbOutside(event)">
+  <button class="lb-close" onclick="closeLb()">✕ إغلاق</button>
+  <button class="lb-nav lb-prev" onclick="navLb(-1)">›</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav lb-next" onclick="navLb(1)">‹</button>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<script>
+/* NAV */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* MOBILE MENU */
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileNav').classList.toggle('open', menuOpen);
+  document.getElementById('menuToggle').classList.toggle('open', menuOpen);
+}
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('menuToggle').classList.remove('open');
+}
+document.addEventListener('click', (e) => {
+  if (menuOpen && !e.target.closest('#mobileNav') && !e.target.closest('#menuToggle')) closeMenu();
+});
+
+/* REVEAL */
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) { setTimeout(() => el.classList.add('visible'), i % 4 * 100); }
+  }, { threshold: 0.1 }).observe(el);
+});
+
+/* GALLERY TOGGLE */
+let isGrid = false;
+const galSection = document.querySelector('.gallery-section');
+const strip = document.getElementById('strip');
+
+function toggleGallery() {
+  isGrid = !isGrid;
+  galSection.classList.toggle('grid-mode', isGrid);
+  strip.classList.toggle('paused', isGrid);
+}
+
+/* STRIP HOVER PAUSE */
+strip.addEventListener('mouseenter', () => { if (!isGrid) strip.classList.add('paused'); });
+strip.addEventListener('mouseleave', () => { if (!isGrid) strip.classList.remove('paused'); });
+strip.addEventListener('touchstart', () => { if (!isGrid) strip.classList.add('paused'); }, { passive: true });
+strip.addEventListener('touchend', () => {
+  if (!isGrid) setTimeout(() => strip.classList.remove('paused'), 1500);
+});
+
+/* LIGHTBOX */
+const imgs = ['p1.jpg','p2.jpg','p3.jpg','p4.jpg','p5.jpg','p6.jpg','p7.jpg','p8.jpg','p9.jpg','p10.jpg','p11.jpg'];
+const names = ['قلادة الشعلتين','قلادة السهم','خاتم الطائرة القرمزية','السهم السماوي','لؤلؤ الأم','القلادة الذهبية','القلادة الفضية','خاتم الزمرد','سوار الزمرد المنزلق','فردة الألماس','قطرة اللهب'];
+let cur = 0;
+
+function openLb(i) {
+  cur = i;
+  const img = document.getElementById('lb-img');
+  img.src = imgs[i]; img.alt = names[i];
+  document.getElementById('lb-count').textContent = (i+1) + ' / ' + imgs.length;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbOutside(e) { if (e.target === document.getElementById('lightbox')) closeLb(); }
+function navLb(d) {
+  cur = (cur + d + imgs.length) % imgs.length;
+  const img = document.getElementById('lb-img');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = imgs[cur]; img.alt = names[cur];
+    document.getElementById('lb-count').textContent = (cur+1) + ' / ' + imgs.length;
+    img.style.opacity = '1';
+  }, 180);
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') navLb(-1);
+  if (e.key === 'ArrowLeft') navLb(1);
+});
+
+/* FORM */
+function submitForm() { alert('شكراً لاستفساركم! سيتواصل معكم فريقنا خلال 24 ساعة.'); }
+</script>
+<script>
+  const strip = document.getElementById("strip");
+  
+  let speed = 0.4;
+  let isHovering = false;
+  let isDragging = false;
+  let startX, scrollLeft;
+  
+  /* 🔥 Infinite Smooth Scroll */
+  function animate() {
+    if (!isHovering && !isDragging) {
+      strip.scrollLeft += speed;
+      
+      if (strip.scrollLeft >= strip.scrollWidth / 2) {
+        strip.scrollLeft = 0;
+      }
+    }
+    
+    requestAnimationFrame(animate);
+  }
+  animate();
+  
+  /* 🖱️ Hover = Pause */
+  strip.addEventListener("mouseenter", () => {
+    isHovering = true;
+  });
+  
+  strip.addEventListener("mouseleave", () => {
+    isHovering = false;
+  });
+  
+  /* 🖐️ Drag */
+  strip.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.pageX - strip.offsetLeft;
+    scrollLeft = strip.scrollLeft;
+  });
+  
+  strip.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+  
+  strip.addEventListener("mouseleave", () => {
+    isDragging = false;
+  });
+  
+  strip.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    
+    e.preventDefault();
+    const x = e.pageX - strip.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    
+    strip.scrollLeft = scrollLeft - walk;
+  });
+</script>
+</body>
+</html>
